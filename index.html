@@ -1056,7 +1056,9 @@
 
         // Get current URL to determine which link to use
         function getCurrentPath() {
-            return window.location.pathname;
+            // Check hash first (for GitHub Pages routing), then pathname
+            const hash = window.location.hash.substring(1); // Remove #
+            return hash || window.location.pathname;
         }
 
         // Get the appropriate redirect URL based on current path
