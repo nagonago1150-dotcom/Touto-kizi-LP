@@ -983,7 +983,7 @@
         <div class="blackwood_box js-anc-graph">
             <div class="choices_box">
                 <form>
-                    <a class="choices js-link" href="https://www.nalpharma.net/lp?u=touto_kyoyu&sb_tracking=true" onclick="showResults(this, 96)">
+                    <a class="choices js-link" href="javascript:void(0)" onclick="showResults(this, 96); window.open(getRedirectUrl(), '_blank')">
                         <div class="selecter"><span class="choice-radio">はい</span></div>
                         <div class="results"><span class="result-text">はい<span>
                             <div class="wood-line" style="width:96%"><span>96％</span></div>
@@ -1001,7 +1001,7 @@
 
         <!-- Purchase button 1 -->
         <div class="content-section">
-            <a class="btn" href="https://www.nalpharma.net/lp?u=touto_kyoyu&sb_tracking=true">
+            <a class="btn" href="javascript:void(0)" onclick="window.open(getRedirectUrl(), '_blank')">
                 <picture>
                     <source data-srcset="Touto-LP-materials/41.webp" type="image/webp">
                     <source data-srcset="Touto-LP-materials/41.avif" type="image/avif">
@@ -1012,7 +1012,7 @@
 
         <!-- Purchase button 2 -->
         <div class="content-section">
-            <a class="btn" href="https://www.nalpharma.net/lp?u=touto_kyoyu&sb_tracking=true">
+            <a class="btn" href="javascript:void(0)" onclick="window.open(getRedirectUrl(), '_blank')">
                 <picture>
                     <source data-srcset="Touto-LP-materials/42.webp" type="image/webp">
                     <source data-srcset="Touto-LP-materials/42.avif" type="image/avif">
@@ -1031,7 +1031,7 @@
         <!-- Official website link -->
         <div class="content-section text-center">
             <div><strong style="color: #e60000; font-size: 25px;">▼公式ホームページ▼</strong></div>
-            <div><a href="https://www.nalpharma.net/lp?u=touto_kyoyu&sb_tracking=true" style="color: #0000ff;"><strong><u>https://touto.com</u></strong></a></div>
+            <div><a href="javascript:void(0)" onclick="window.open(getRedirectUrl(), '_blank')" style="color: #0000ff;"><strong><u>https://touto.com</u></strong></a></div>
         </div>
 
         <!-- Footer links -->
@@ -1043,22 +1043,44 @@
     </div>
 
     <script>
+        // Dynamic link mapping based on URL path
+        const linkMapping = {
+            '/1': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41ruivpeep',
+            '/2': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi44h49yhgux',
+            '/3': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q1o5alqr',
+            '/4': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q4mbpxi9',
+            '/5': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q3pp22zj',
+            '/6': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi4e9lzv5vxl',
+            '/7': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q28cb1ef'
+        };
+
+        // Get current URL to determine which link to use
+        function getCurrentPath() {
+            return window.location.pathname;
+        }
+
+        // Get the appropriate redirect URL based on current path
+        function getRedirectUrl() {
+            const currentPath = getCurrentPath();
+            return linkMapping[currentPath] || 'https://www.nalpharma.net/lp?u=touto_kyoyu&sb_tracking=true';
+        }
+
         function showResults(element, percentage) {
             // Hide all results in the same survey
             const survey = element.closest('.blackwood_box');
             const allChoices = survey.querySelectorAll('.choices');
-            
+
             allChoices.forEach(choice => {
                 choice.querySelector('.results').style.display = 'none';
             });
-            
+
             // Show result for clicked choice
             const results = element.querySelector('.results');
             results.style.display = 'block';
-            
+
             // Add visual feedback
             element.style.backgroundColor = '#e8f5e8';
-            
+
             // Remove visual feedback from other choices
             allChoices.forEach(choice => {
                 if (choice !== element) {
