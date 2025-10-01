@@ -1056,15 +1056,31 @@
 
         // Get current URL to determine which link to use
         function getCurrentPath() {
-            // Check hash first (for GitHub Pages routing), then pathname
-            const hash = window.location.hash.substring(1); // Remove #
-            return hash || window.location.pathname;
+            // Get the actual pathname from the URL
+            // This works correctly with Vercel rewrites
+            let path = window.location.pathname;
+
+            // Remove trailing slash if present
+            if (path !== '/' && path.endsWith('/')) {
+                path = path.slice(0, -1);
+            }
+
+            return path;
         }
 
         // Get the appropriate redirect URL based on current path
         function getRedirectUrl() {
             const currentPath = getCurrentPath();
-            return linkMapping[currentPath] || 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41ruivpeep';
+            const redirectUrl = linkMapping[currentPath] || 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41ruivpeep';
+
+            // Debug logging
+            console.log('=== Redirect Debug Info ===');
+            console.log('Current path:', currentPath);
+            console.log('Full URL:', window.location.href);
+            console.log('Redirect URL:', redirectUrl);
+            console.log('========================');
+
+            return redirectUrl;
         }
 
         function showResults(element, percentage) {

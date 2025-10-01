@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .result {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .code {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Redirect Function Test</h1>
+
+    <div class="test-section">
+        <h2>Current URL Info</h2>
+        <div class="result">
+            <strong>Full URL:</strong> <span id="fullUrl"></span>
+        </div>
+        <div class="result">
+            <strong>Pathname:</strong> <span id="pathname"></span>
+        </div>
+        <div class="result">
+            <strong>Hash:</strong> <span id="hash"></span>
+        </div>
+        <div class="result">
+            <strong>getCurrentPath() result:</strong> <span id="currentPath"></span>
+        </div>
+        <div class="result">
+            <strong>getRedirectUrl() result:</strong> <span id="redirectUrl"></span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Redirect</h2>
+        <p>Click the button below to test the redirect (will open in new tab):</p>
+        <button onclick="testRedirect()">🚀 Test Redirect (Open in New Tab)</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Manual Path Testing</h2>
+        <p>Test different paths manually:</p>
+        <button onclick="window.location.href = '/1'">Test /1</button>
+        <button onclick="window.location.href = '/2'">Test /2</button>
+        <button onclick="window.location.href = '/3'">Test /3</button>
+        <button onclick="window.location.href = '/4'">Test /4</button>
+        <button onclick="window.location.href = '/5'">Test /5</button>
+        <button onclick="window.location.href = '/6'">Test /6</button>
+        <button onclick="window.location.href = '/7'">Test /7</button>
+    </div>
+
+    <script>
+        // Copy of the actual functions from index.html
+        const linkMapping = {
+            '/1': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41ruivpeep',
+            '/2': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi44h49yhgux',
+            '/3': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q1o5alqr',
+            '/4': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q4mbpxi9',
+            '/5': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q3pp22zj',
+            '/6': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi4e9lzv5vxl',
+            '/7': 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41q28cb1ef'
+        };
+
+        function getCurrentPath() {
+            let path = window.location.pathname;
+
+            // Remove trailing slash if present
+            if (path !== '/' && path.endsWith('/')) {
+                path = path.slice(0, -1);
+            }
+
+            return path;
+        }
+
+        function getRedirectUrl() {
+            const currentPath = getCurrentPath();
+            const redirectUrl = linkMapping[currentPath] || 'https://sf-system.jp/link.php?i=pi4ser44dpib&m=mi41ruivpeep';
+
+            console.log('=== Redirect Debug Info ===');
+            console.log('Current path:', currentPath);
+            console.log('Full URL:', window.location.href);
+            console.log('Redirect URL:', redirectUrl);
+            console.log('========================');
+
+            return redirectUrl;
+        }
+
+        function testRedirect() {
+            const url = getRedirectUrl();
+            console.log('Opening:', url);
+            window.open(url, '_blank');
+        }
+
+        function updateInfo() {
+            document.getElementById('fullUrl').textContent = window.location.href;
+            document.getElementById('pathname').textContent = window.location.pathname;
+            document.getElementById('hash').textContent = window.location.hash || '(none)';
+            document.getElementById('currentPath').textContent = getCurrentPath();
+            document.getElementById('redirectUrl').textContent = getRedirectUrl();
+        }
+
+        // Update info on load and whenever URL changes
+        updateInfo();
+        window.addEventListener('hashchange', updateInfo);
+    </script>
+</body>
+</html>
